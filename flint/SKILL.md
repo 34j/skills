@@ -1,3 +1,8 @@
+---
+name: flint
+description: "The basic usage of flint, optionally interval arithmetic multiprecision arithmetic library"
+---
+
 - Never use Python float. Use `flint.arb` (real), `flint.acb` (complex). Use `flint.arf` (real) if only real upper bound / lower bound is needed. There is no `flint.acf` (complex), use `flint.acb` even if only complex upper bound / lower bound is needed.
 - Do not try to reinvent existing simple algorithms as much as possible. However, rootfinding method is not implemented in python-flint, so you may implement it yourself.
 - For interval-related methods or python-flint specific methods, use with `np.vectorize`.

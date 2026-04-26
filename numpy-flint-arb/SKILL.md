@@ -1,3 +1,8 @@
+---
+name: numpy-flint-arb
+description: "The package to use flint's arb and acb types as numpy arrays"
+---
+
 Import `numpy_flint_arb.np` instead of `numpy`:
 
 ```python
