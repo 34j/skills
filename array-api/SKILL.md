@@ -61,20 +61,90 @@ description: Conventions that MUST be followed when implementing array API compa
   - **Shape checking**: The function should check the shape at the very beginning of its implementation.
     - Check every shape variable (etc. `N`) is correct
     - Check every variable-length shape variable (etc. `...`, `...(f)`) is both broadcastable and moreover has the same dimensions. (Does not need to have same shape.)
-    - These should be done like following:
+    - These should be done using `array_api_shape_check.check_shapes()` function, which syntax is as follows. The result may be useful for later computation in some cases.
+
       ```python
-      import array_api_extra as xpx
-      errors = []
-      if x.shape[-1] != y.shape[-2]:
-          errors.append(ValueError(f"N: {=x.shape[-1]}, {=y.shape[-2]} does not match\n{=x.shape}, {=y.shape}"))
-      try:
-          xpx.broadcast_shapes(a.shape[-3:], b.shape[-2:], c.shape[-1:])
-          assert len(a.shape[-3:]) == len(b.shape[-2:]) == len(c.shape[-1:])
-      except ValueError as e:
-          errors.append(ValueError(f"...(f): {=a.shape[-3:]}, {=b.shape[-2:]}, {=c.shape[-1:]} are not broadcastable or do not have the same dimensions\n{=x.shape}, {=y.shape}, {=z.shape}"))
-      if errors:
-          raise ExceptionGroup("Shape check failed", errors)
+      def check_shapes(
+          subscripts: str, /, *operands: Array | tuple[int, ...], names: str | None = None
+      ) -> SubscriptInfoFromShape:
+          """
+          Parse variable subscript ndims by solving linear equations.
+
+          Parameters
+          ----------
+          subscripts : str
+              Subscripts separated by "," per operand.
+
+              1. Subscripts must be of length 1
+              2. Subscripts must not be "*" or ".".
+              3. If start with "*", the subscript is treated as variable.
+              4. "..." is replaced with "*.".]
+          operands : Array or tuple[int, ...]
+              Arrays or shape tuples corresponding to check.
+          ndims : Sequence[int]
+              The number of dimensions for each operand.
+          names : str | None
+              The names of operands separated by ",",
+              used for error messages. If None, operand indices are used instead.
+
+          Returns
+          -------
+          SubscriptInfoFromSubcript
+              The parsed subscript info.
+
+          Raises
+          ------
+          ValueError
+              If the subscript is invalid.
+
+          Examples
+          --------
+          >>> info = check_shapes("ij,*k*l,*li", (1, 4), (5, 6, 7), (1, 7, 3))
+          >>> info.all
+          ((i:1->3, j:4), (*k:(5,), *l:(6, 7)), (*l:(1, 7)->(6, 7), i:3))
+          >>> info.unique
+          (i:3, j:4, *k:(5,), *l:(6, 7))
+
+          Internally `check_shapes()` calls `parse_variable_ndim()`,
+          which determines the number of dimensions for variable subscripts by least squares.
+          If this is successful, checks if each subscript is consistent,
+          then finnaly raises error for all inconsistencies at once.
+
+          Diving into the details of the first item:
+
+          >>> item = info.all[0][0]
+          >>> item.name  # the name of the subscript
+          'i'
+          >>> item.is_variable  # whether the subscript is variable (starts with "*")
+          False
+          >>> item.shape_current  # the current shape of the subscript
+          (1,)
+          >>> item.shape_broadcasted  # the broadcasted shape of the subscript
+          (3,)
+
+          Not enough information to determine variable subscript ndims:
+
+          >>> import pytest
+          >>> with pytest.raises(InconsistentNdimErrorMultipleSolutions, match="number of variables"):
+          ...     check_shapes("*i*j", (1, 1))
+          >>> with pytest.raises(InconsistentNdimErrorMultipleSolutions, match="rank"):
+          ...     check_shapes("*i*j,*i*j", (1, 1), (1, 1))
+
+          No solution to determine variable subscript ndims:
+
+          >>> with pytest.raises(InconsistentNdimErrorNoSolutions, match="residuals"):
+          ...     check_shapes("*i,*i", (1, 1), (1, 1, 1))
+          >>> with pytest.raises(InconsistentNdimErrorNoSolutions, match="negative"):
+          ...     check_shapes("*ij", ())
+
+          Does not match:
+          >>> with pytest.raises(InconsistentShapeError):
+          ...     check_shapes("ij,*k*l,*li", (3, 4), (5, 6), (1, 7, 3))
+
+          """
+          ...
       ```
+
   - **Importing Numpy allowed only for constants**: Never import `numpy` directly, unless for constants like `np.pi` for context when `xp` is not available.
   - **Type promotion**: Understand Type promotion rules, i.e. float64 + complex64 -> complex128. Mixed integer and floating-point type promotion rules are not specified, but we assume that for every floating (including complex) dtype x, x + (int type) -> x.
   - **Type promotion: no wrapping Python scalars**: Avoid wrapping `int` arrays, Python scalars with `xp.asarray()` but use them directly (because it is redundant). The exception is when you need to divide int by int (in this case you only need to wrap one of them).
