@@ -64,6 +64,21 @@ description: Conventions that MUST be followed when implementing array API compa
     - These should be done using `array_api_shape_check.check_shapes()` function, which syntax is as follows. The result may be useful for later computation in some cases.
 
       ```python
+      def func(x: Array, y: Array) -> Array:
+          """
+          Parameters
+          ----------
+          x : Array
+              Array of shape (..., A, B).
+          y : Array
+              Array of shape (..., ...(C), D, E).
+          """
+          info = check_shapes("...AB,...*CDE", x, y, names="x,y")
+          # use info for later computation if useful
+          z = xp.zeros(info.unique["C"].shape_broadcasted, device=x.device, dtype=x.dtype)
+      ```
+
+      ```python
       def check_shapes(
           subscripts: str, /, *operands: Array | tuple[int, ...], names: str | None = None
       ) -> SubscriptInfoFromShape:
@@ -103,7 +118,7 @@ description: Conventions that MUST be followed when implementing array API compa
           >>> info.all
           ((i:1->3, j:4), (*k:(5,), *l:(6, 7)), (*l:(1, 7)->(6, 7), i:3))
           >>> info.unique
-          (i:3, j:4, *k:(5,), *l:(6, 7))
+          {'i': i:3, 'j': j:4, 'k': *k:(5,), 'l': *l:(6, 7)}
 
           Internally `check_shapes()` calls `parse_variable_ndim()`,
           which determines the number of dimensions for variable subscripts by least squares.
