@@ -67,6 +67,16 @@ description: Conventions that MUST be followed when implementing array API compa
     ```
 
   - **Docstring: shape**: The docstring should mention the shape of the input / output arrays and the argument description should end with `of shape (..., a, b)`.
+  - **ExceptionGroup**: If multiple input checks can be done in a row, use `ExceptionGroup` to raise all errors at once, allowing the user to fix all errors at once.
+    ```python
+    errors = []
+    if x <= 0:
+        errors.append(ValueError("x must be positive"))
+    if y <= 0:
+        errors.append(ValueError("y must be positive"))
+    if errors:
+        raise ExceptionGroup("Invalid input", errors)
+    ```
   - **Shape checking**: The function should check the shape at the very beginning of its implementation.
     - Check every shape variable (etc. `N`) is correct
     - Check every variable-length shape variable (etc. `...`, `...(f)`) is both broadcastable and moreover has the same dimensions. (Does not need to have same shape.)
