@@ -32,6 +32,7 @@ description: Conventions that MUST be followed when implementing array API compa
   - `xp.moveaxis()` may be used without worrying about performance, do not worry about internal complexity whcn choosing convention.
   - Do not worry about axis performance when choosing convention.
   - **Docstring: function output-dependent shape**: When the shape is variable (depending on function etc.) one can do `(..., ...(f))` where `f` implies the function but may replaced with something more suitable. `(..., *something)` is also possible but less preferred, yet sometimes it might be more suitable.
+  - **Docstring**: docstring should contain doctests. They should be "demostrative", cover the edge cases in terms of math (not errors, wrong types, etc.). When doctests are run, the file in which the function is implemented is imported, therefore do not re-import packages or the function.
   - **Docstring**: The docstring should be Numpydoc style.
 
     ```python
@@ -54,6 +55,14 @@ description: Conventions that MUST be followed when implementing array API compa
         -------
         Array
             $x^p$ of shape (...,).
+
+        Examples
+        --------
+        >>> func(2, 3)
+        8
+        >>> import pytest
+        >>> with pytest.raises(ValueError):
+        >>>     func(0, -1)
         """
     ```
 
