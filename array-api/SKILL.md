@@ -33,6 +33,9 @@ description: Conventions that MUST be followed when implementing array API compa
   - Do not worry about axis performance when choosing convention.
   - **Docstring: function output-dependent shape**: When the shape is variable (depending on function etc.) one can do `(..., ...(f))` where `f` implies the function but may replaced with something more suitable. `(..., *something)` is also possible but less preferred, yet sometimes it might be more suitable.
   - **Docstring**: docstring should contain doctests. They should be "demostrative", cover the edge cases in terms of math (not errors, wrong types, etc.). When doctests are run, the file in which the function is implemented is imported, therefore do not re-import packages or the function.
+  - **Docstring: LaTeX**: Use LaTeX in docstring for mathematical symbols.
+    - Do not use sphinx's native math syntax (e.g. `:math:`).
+    - Use `$` for inline math and `$$` for block math. Install `sphinx_dollar_math` to `docs` group (`uv add --group docs sphinx_dollar_math`) and add `sphinx_dollar_math` to `extensions` in `docs/conf.py` if this is not already done and LaTeX needs to be written in docstring.
   - **Docstring**: The docstring should be Numpydoc style.
 
     ```python
