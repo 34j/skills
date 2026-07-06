@@ -37,6 +37,7 @@ description: Conventions that MUST be followed when implementing array API compa
     - Do not use sphinx's native math syntax (e.g. `:math:`, `.. math::`).
     - Use `$` for inline math and `$$` for block math. Install `sphinx_math_dollar` to `docs` group (`uv add --group docs sphinx_math_dollar`) and add both `sphinx_math_dollar` and `sphinx.ext.mathjax` to `extensions` in `docs/conf.py` if this is not already done and LaTeX needs to be written in docstring.
     - For LaTeX variables which length longer than 1, use `\mathrm{}` to avoid confusion with multiplication. For variables which length is 1, write as-is.
+  - **Docstring: D301**: Be careful to Ruff `D301 escape-sequence-in-docstring: Use r""" if any backslashes in a docstring` when writing LaTeX in docstring.
   - **Docstring**: The docstring should be Numpydoc style.
 
     ```python
