@@ -49,3 +49,7 @@ description: "The attitude towards solving the problem"
   - Recursively searching under `~`, `/nix/store` is prohibited because it is too slow, also `~/ghq/github.com` is strongly discouraged.
   - When it is not needed and especially it is not project-level search but wider-level search (such as `~/ghq/github.com`), avoid searching within `.venv`, `node_modules`, etc, to maximize the speed of searching.
 - Avoid object-oriented probramming using classes, abstract classes, interfaces, instead use functions, types, as long as the language supports it.
+- Questions:
+  - Try to clarify everything as early as possible using `ask_user`, avoid asking later because I do not want to stare the monitor.
+  - Consider a bit before asking questions.
+  - Set timeout for `ask_user` to 60s. If reached to timeout, it will say "Cancelled", if so reconsider and pick the best.
