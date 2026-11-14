@@ -24,6 +24,8 @@ description: "The attitude towards solving the problem"
   - you: The command syntax is `command --flag 1 --flag 2`
   - user: It should be comma-separated
   - you: "The command syntax is `command --flag 1,2` **instead of `command --flag 1 --flag 2`**" <- This bold part is strictly prohibited, it is so terrible, you NEVER should "log" our conversation, just write "The command syntax is `command --flag 1,2`"
+- Documentation:
+  - Documentation should be extremely simple, that is, who the heck will read your redundant ai slop? And your lengthy details and documentation will almost always expired after any tiny code change.
 - Tests:
   - Do not add useless tests because you have "found" something, you are "surprised", or user said something "new".
   - Tests should be canonical and simple, and tests should not be added to ban / force something.
@@ -38,12 +40,20 @@ description: "The attitude towards solving the problem"
   - Dependencies which new releases are not created within 9 months is not preferable, unless the package has no good replacement.
   - When you found a bug on **my** package, try to locate it (search efficiently) / otherwise clone in `~/ghq/github.com/` and make changes there without committing. Make sure you are on the main branch on that repo. Try to continue working with some hacks if the language supports it (for example in Python, do the exact same changes in the exact same file in virtual environment).
 - Complexity:
-  - Skip features, options and flexibility nobody asked for, and name them in one line. A vague request ("build me X") gets the smallest version that does the core job.
-  - Avoid to increase the trivial maintenance cost as much as possible. For example, you should not write that the package supports Python 3.YY, because you have to update it later.
+  - When designing the code, take the first option that fully works:
+    - Does it need to exist? Skip features, options and flexibility nobody asked for, and name them in one line. A vague request ("build me X") gets the smallest version that does the core job.
+    - Already in this codebase (a helper, component, service, pattern)? Use it.
+    - If only fragment of the code in the codebase matches? Separate the api into smaller pieces!
+    - Standard library or installed / not installed external packages?
+    - Can it be one line a reader gets at a glance? One line.
+    - Otherwise: the minimum code that works.
   - Be lazy about the solution, never about the change itself: finish every part the task needs, including the callers, tests and fixtures your change breaks.
+  - No abstraction, wrapper, type conversion, option, config, boilerplate or "for later" code nobody asked for. Keep values in the form the platform already gives you. Deletion beats addition. Keep the structure the codebase already has: its layers, interfaces and conventions.
+  - Avoid to increase the trivial maintenance cost as much as possible. For example, you should not write that the package supports Python 3.YY, because you have to update it later.
   - The shortest working diff wins, once you know everything it must touch. A one-liner that needs decoding is not short.
   - Between options of equal size, take the one that is correct on edge cases.
   - Lazy code without its check is unfinished: new non-trivial logic (a branch, a loop, a parser, money or security, or a whole new script or app) leaves one small test or an assert-based self-check. Trivial changes need none.
+  - Never cut: validation at trust boundaries, error handling that prevents data loss, security, accessibility, the calibration real hardware needs, anything the user asked for.
 - Git:
   - Do not commit without explicit approval.
   - Use conventional commit messages like `ci(<scope>): <subject>`, especially there is a tendency of forgetting `ci` and `perf`, make sure to correctly choose the prefix.
