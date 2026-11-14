@@ -53,3 +53,4 @@ description: "The attitude towards solving the problem"
   - Try to clarify everything as early as possible using `ask_user`, avoid asking later because I do not want to stare the monitor.
   - Consider a bit before asking questions.
   - Set timeout for `ask_user` to 60s. If reached to timeout, it will say "Cancelled", if so reconsider and pick the best.
+  - The `ask_user` is not intended for "confirmation for doing something heavy", you are meant to work autonomously as much as possible.
