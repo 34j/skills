@@ -31,7 +31,7 @@ description: "The attitude towards solving the problem"
   - Go to the "latest" "Reddit" solution (I'm not saying you should visit Reddit actually, but I am saying you should pick ones that should be recommended by Reddit users), and avoid using standard libraries blindly. For example choose attrs instead of default NamedTuple.
   - Dependencies which is "AI slop" is not preferable, they typically are very new and have little popularity, readme has too much information and too well written, use a lot of bolds.
   - Dependencies which new releases are not created within 9 months is not preferable, unless the package has no good replacement.
-  - When you found a bug on **my** package, try to locate it / otherwise clone in `~/ghq/github.com/` and make changes there without committing. Make sure you are on the main branch on that repo. Try to continue working with some hacks if the language supports it (for example in Python, do the exact same changes in the exact same file in virtual environment).
+  - When you found a bug on **my** package, try to locate it (search efficiently) / otherwise clone in `~/ghq/github.com/` and make changes there without committing. Make sure you are on the main branch on that repo. Try to continue working with some hacks if the language supports it (for example in Python, do the exact same changes in the exact same file in virtual environment).
 - Complexity:
   - Skip features, options and flexibility nobody asked for, and name them in one line. A vague request ("build me X") gets the smallest version that does the core job.
   - Avoid to increase the trivial maintenance cost as much as possible. For example, you should not write that the package supports Python 3.YY, because you have to update it later.
