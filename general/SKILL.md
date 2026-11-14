@@ -17,7 +17,8 @@ description: "The attitude towards solving the problem"
     - The package function is not implemented correctly. In this case it should be fixed there, not here.
     - Do not be too concerned about failing tests.
     - The user is using NixOS, which is not very common. In this case the NixOS configuration needs to be fixed or flake.nix should be added.
-- Avoid overreaction: Do not overreact after finding a bug, just fix it, adding 10 lines of comment and useless test cases just because you are "surprised" is not acceptable, 1 line of comment is enough.
+- Think as if, initially there was no code, then you added the entire code. You are not only responsible for your own changes, but minimizing the entire code, and make it consistent looking.
+- Avoid overreaction: Do not overreact after you "surprised" / found a bug, just fix it, adding 10 lines of comment and useless test cases just because you are "surprised" is not acceptable. As written in the last rule, adding too much for specific issue will break the consistency of the code.
 - Tests:
   - Do not add useless tests because you have "found" something, you are "surprised", or user said something "new".
   - Tests should be canonical and simple, and tests should not be added to ban / force something.
