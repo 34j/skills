@@ -5,7 +5,7 @@ description: "The attitude towards solving the problem"
 
 - Writing:
   - Do not rephrase.
-  - Do not write like a poem, for example "X is bad. Because y." is not good, "X is bad because y." is only acceptable.
+  - Do not write like a poem.
   - Decorating code / comments using `—` `*` etc. is prohibited.
   - Do not overreact.
   - Do not use strong words like "must" "definitely" "completely", etc.
