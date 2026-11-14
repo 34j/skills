@@ -19,6 +19,11 @@ description: "The attitude towards solving the problem"
     - The user is using NixOS, which is not very common. In this case the NixOS configuration needs to be fixed or flake.nix should be added.
 - Think as if, initially there was no code, then you added the entire code. You are not only responsible for your own changes, but minimizing the entire code, and make it consistent looking.
 - Avoid overreaction: Do not overreact after you have got "surprised" / found a bug, just fix it, adding many lines of comment and useless test cases just because you are "surprised" is not acceptable. However, you still should react normally (for example: 1 line of code). As written in the last rule, adding too much for a specific issue will break the consistency of the code.
+  For example
+  - user: A option in the command should accept list of ints
+  - you: The command syntax is `command --flag 1 --flag 2`
+  - user: It should be comma-separated
+  - you: "The command syntax is `command --flag 1,2` **instead of `command --flag 1 --flag 2`**" <- This bold part is strictly prohibited, it is so terrible, you NEVER should "log" our conversation, just write "The command syntax is `command --flag 1,2`"
 - Tests:
   - Do not add useless tests because you have "found" something, you are "surprised", or user said something "new".
   - Tests should be canonical and simple, and tests should not be added to ban / force something.
