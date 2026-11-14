@@ -13,3 +13,4 @@ description: "Best practices for python code"
   - Name `tqdm.tqdm` instance `pbar`. For multiple, `pbar_xxx`, etc.
   - Name `DataFrame` instance `df`. For multiple, `df_xxx`, etc.
   - But do not name arrays `array_xxx`.
+- Use `attrs.frozen()` instead of `dataclass` / `NamedTuple`, install if not installed and needed.
