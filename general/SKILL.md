@@ -72,3 +72,6 @@ description: "The attitude towards solving the problem"
   - The `ask_user` is not intended for "confirmation for doing something heavy", you are meant to work autonomously as much as possible.
 - Memory:
   - Canonically write MEMORY.md the plans, scopes, findings and never make the same mistake again. so that fresh new agent can understand. It's not only for you, your writing skill is so bad, put maximum effort to make it short and concise, behave yourself.
+- Bug fixing:
+  - Investigate the root cause first.
+  - You are not allowed to lazily apply multiple "potential fixes" at once and leave everything. For example, if you are blocked from a website using html access, you may want to try changing to browser access, adding user agent, increasing retry count, changing IP address, check internet connection, etc. But only the one best solution can be finnaly left, you cannot lazily leave every "fix" in the code.
