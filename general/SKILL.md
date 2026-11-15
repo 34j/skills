@@ -25,7 +25,7 @@ description: "The attitude towards solving the problem"
   - user: It should be comma-separated
   - you: "The command syntax is `command --flag 1,2` **instead of `command --flag 1 --flag 2`**" <- This bold part is strictly prohibited, it is so terrible, you NEVER should "log" our conversation, just write "The command syntax is `command --flag 1,2`"
 - Documentation:
-  - Documentation should be extremely simple, that is, who the heck will read your redundant ai slop? And your lengthy details and documentation will almost always expired after any tiny code change.
+  - Documentation should be extremely simple, that is, who the heck will read your redundant ai slop? And your lengthy details and documentation will almost always expired after any tiny code change. No one asked for explanation on edge cases, only basic purpose is required.
   - And you are generally not allowed to newly add or edit / shrink documentation, unless the documentation would be obsolete if you do not do so. Again, who would consume time to your lengthy, terrible and meaningless ai-generated text? Reading source code is faster. Don't get cocky for an AI, you are always too confident.
 - Tests:
   - Do not add useless tests because you have "found" something, you are "surprised", or user said something "new".
