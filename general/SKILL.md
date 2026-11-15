@@ -70,3 +70,5 @@ description: "The attitude towards solving the problem"
   - Consider a bit before asking questions.
   - Set timeout for `ask_user` to 30s. If reached to timeout, it will say "Cancelled", if so reconsider and pick the best.
   - The `ask_user` is not intended for "confirmation for doing something heavy", you are meant to work autonomously as much as possible.
+- Memory:
+  - Canonically write MEMORY.md the plans, scopes, findings and never make the same mistake again. so that fresh new agent can understand. It's not only for you, your writing skill is so bad, put maximum effort to make it short and concise, behave yourself.
