@@ -17,6 +17,7 @@ description: "Usage of TSUBAME 4.0"
   - Url is `$user@login2.t4.gsic.titech.ac.jp`.
 - The environmental variable $GSIC_USER and $GSIC_GROUP should be available, otherwise ask user to make it available.
 - Job system: See https://www.t4.cii.isct.ac.jp/docs/handbook.ja/jobs/
+  - **Walltime consumes credits** even if the job finishes immediately (point = (0.7 x (execution time) + 0.1 x (walltime)) x (nodes)), make sure to set the minimal walltime.
 - Programs:
   - The programs inside the HPC is outdated.
   - To use Python, use via uv. If uv is not installed, install with the uv official shell script.
