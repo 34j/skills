@@ -3,6 +3,7 @@ name: hpc-tsubame-4
 description: "Usage of TSUBAME 4.0"
 ---
 
+- **Do not do heavy operations on login node!** Use jobs to do so.
 - Specification:
   - It consists of big nodes, 2x CPU and 4x H100. CPU-only node cpu-160 is also available. Avoid using the full node if your program only supports only single GPU.
 - Credits:

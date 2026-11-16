@@ -3,6 +3,7 @@ name: hpc-miyabi-g
 description: "Usage of Miyabi-G"
 ---
 
+- **Do not do heavy operations on login node!** Use jobs to do so.
 - Documentation:
   - The document cannot be viewed without logging in to the portal and agreeing to the rules, thus you cannot web search it.
 - Specification:
